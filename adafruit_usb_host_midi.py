@@ -71,3 +71,14 @@ class MIDI:
         self.start += size
         self._remaining -= size
         return b
+
+    def readinto(self, buf):
+        b = self.read(len(buf))
+        n = len(b)
+        if n:
+            buf[:] = b
+        return n
+
+    def __repr__(self):
+        # also idProduct/idVendor for vid/pid
+        return "MIDI Device " + str(self.device.manufacturer) + "/" + str(self.device.product)
