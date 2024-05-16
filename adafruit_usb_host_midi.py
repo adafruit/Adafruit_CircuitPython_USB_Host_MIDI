@@ -20,11 +20,12 @@ __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_USB_Host_MIDI.git
 DIR_IN = 0x80
 
 class MIDI:
-    def __init__(self, device):
+    def __init__(self, device, timeout=None):
         self.interface_number = 0
         self.in_ep = 0
         self.out_ep = 0
         self.device = device
+        self.timeout_ms = round(timeout * 1000) if timeout else 0
 
         self.buf = bytearray(64)
         self.start = 0
@@ -64,8 +65,12 @@ class MIDI:
 
     def read(self, size):
         if self._remaining == 0:
-            self._remaining = self.device.read(self.in_ep, self.buf) - 1
-            self.start = 1
+            try:
+                n = self.device.read(self.in_ep, self.buf, self.timeout_ms)
+                self._remaining = n - 1
+                self.start = 1
+            except usb.core.USBTimeoutError as e:
+                pass
         size = min(size, self._remaining)
         b = self.buf[self.start:self.start + size]
         self.start += size
