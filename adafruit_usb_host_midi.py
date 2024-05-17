@@ -23,10 +23,10 @@ DIR_IN = 0x80
 
 class MIDI:
     """
-    Stream-like MIDI device for use with `adafruit_midi` and similar upstream
+    Stream-like MIDI device for use with ``adafruit_midi`` and similar upstream
     MIDI parser libraries.
 
-    :param device: a ``usb.core.Device` object which implements
+    :param device: a ``usb.core.Device`` object which implements
         ``read(endpoint, buffer)`` and ``write(endpoint,buffer)``
     :param float timeout: timeout in seconds to wait for read or write operation
         to succeeds. Default to None, i.e. reads and writes will block.
