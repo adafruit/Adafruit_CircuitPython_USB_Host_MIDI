@@ -37,12 +37,6 @@ or individual libraries can be installed using
 `circup <https://github.com/adafruit/circup>`_.
 
 
-
-.. todo:: Describe the Adafruit product this library works with. For PCBs, you can also add the
-image from the assets folder in the PCB's GitHub repo.
-
-`Purchase one from the Adafruit shop <http://www.adafruit.com/products/>`_
-
 Installing from PyPI
 =====================
 
@@ -95,8 +89,23 @@ Or the following command to update an existing version:
 Usage Example
 =============
 
-.. todo:: Add a quick, simple example. It and other examples should live in the
-examples folder and be included in docs/examples.rst.
+.. code-block:: python
+
+  import adafruit_midi
+  import adafruit_usb_host_midi
+
+  print("Looking for midi device")
+  raw_midi = None
+  while raw_midi is None:
+      for device in usb.core.find(find_all=True):
+          try:
+              raw_midi = adafruit_usb_host_midi.MIDI(device)
+              print("Found", hex(device.idVendor), hex(device.idProduct))
+          except ValueError:
+              continue
+
+  midi_device = adafruit_midi.MIDI(midi_in=raw_midi, in_channel=0)
+
 
 Documentation
 =============

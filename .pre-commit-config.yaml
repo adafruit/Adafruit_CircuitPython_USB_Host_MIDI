@@ -2,6 +2,10 @@
 #
 # SPDX-License-Identifier: Unlicense
 
+default_language_version:
+    # force all unspecified python hooks to run python3.11
+    python: python3.11
+
 repos:
   - repo: https://github.com/python/black
     rev: 23.3.0
