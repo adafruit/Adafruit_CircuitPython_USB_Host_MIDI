@@ -3,14 +3,15 @@
 # SPDX-License-Identifier: Unlicense
 # pylint: disable=unused-import
 
+import adafruit_midi
 import board
 import busio
 import usb.core
-import adafruit_midi
-from adafruit_midi.note_on import NoteOn
-from adafruit_midi.note_off import NoteOff
 from adafruit_midi.control_change import ControlChange
+from adafruit_midi.note_off import NoteOff
+from adafruit_midi.note_on import NoteOn
 from adafruit_midi.pitch_bend import PitchBend
+
 import adafruit_usb_host_midi
 
 print("Looking for midi device")

@@ -11,8 +11,8 @@ CircuitPython USB host driver for MIDI devices
 * Author(s): Scott Shawcroft
 """
 
-import usb.core
 import adafruit_usb_host_descriptors
+import usb.core
 
 __version__ = "0.0.0+auto.0"
 __repo__ = "https://github.com/adafruit/Adafruit_CircuitPython_USB_Host_MIDI.git"
@@ -43,9 +43,7 @@ class MIDI:
         self.start = 0
         self._remaining = 0
 
-        config_descriptor = adafruit_usb_host_descriptors.get_configuration_descriptor(
-            device, 0
-        )
+        config_descriptor = adafruit_usb_host_descriptors.get_configuration_descriptor(device, 0)
 
         i = 0
         midi_interface = False
@@ -54,7 +52,7 @@ class MIDI:
             descriptor_type = config_descriptor[i + 1]
             if descriptor_type == adafruit_usb_host_descriptors.DESC_CONFIGURATION:
                 # pylint: disable=unused-variable
-                config_value = config_descriptor[i + 5]
+                config_value = config_descriptor[i + 5]  # noqa: F841
                 # pylint: enable=unused-variable
             elif descriptor_type == adafruit_usb_host_descriptors.DESC_INTERFACE:
                 interface_number = config_descriptor[i + 2]
@@ -69,9 +67,8 @@ class MIDI:
                 if endpoint_address & DIR_IN:
                     if midi_interface:
                         self.in_ep = endpoint_address
-                else:
-                    if midi_interface:
-                        self.out_ep = endpoint_address
+                elif midi_interface:
+                    self.out_ep = endpoint_address
             i += descriptor_len
 
         device.set_configuration()
@@ -119,9 +116,4 @@ class MIDI:
 
     def __repr__(self):
         # also idProduct/idVendor for vid/pid
-        return (
-            "MIDI Device "
-            + str(self.device.manufacturer)
-            + "/"
-            + str(self.device.product)
-        )
+        return "MIDI Device " + str(self.device.manufacturer) + "/" + str(self.device.product)
