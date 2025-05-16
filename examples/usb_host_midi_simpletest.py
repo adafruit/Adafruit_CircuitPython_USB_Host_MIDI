@@ -2,14 +2,15 @@
 #
 # SPDX-License-Identifier: Unlicense
 
+import adafruit_midi
 import audiobusio
 import board
 import synthio
 import usb.core
 import wm8960
-import adafruit_midi
-from adafruit_midi.note_on import NoteOn
 from adafruit_midi.note_off import NoteOff
+from adafruit_midi.note_on import NoteOn
+
 import adafruit_usb_host_midi
 
 print("Looking for midi device")
