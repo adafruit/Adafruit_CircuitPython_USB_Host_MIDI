@@ -19,7 +19,7 @@ raw_midi = None
 while raw_midi is None:
     for device in usb.core.find(find_all=True):
         try:
-            raw_midi = adafruit_usb_host_midi.MIDI(device)
+            raw_midi = adafruit_usb_host_midi.MIDI(device, timeout=0.01)
             print("Found", hex(device.idVendor), hex(device.idProduct))
         except ValueError:
             continue
